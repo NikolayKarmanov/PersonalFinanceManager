@@ -1,0 +1,48 @@
+package ru.netology;
+
+import com.google.gson.Gson;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+
+public class Main {
+    public static void main(String[] args) throws ParseException {
+        List<Buy> basket = new ArrayList<>();
+
+
+        try (ServerSocket serverSocket = new ServerSocket(8989);) { // стартуем сервер один(!) раз
+            while (true) { // в цикле(!) принимаем подключения
+                try (
+                        Socket socket = serverSocket.accept();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        PrintWriter out = new PrintWriter(socket.getOutputStream());
+                ) {
+                    // принимаем от клиента строку и сохраняем ее в переменную типа String
+                    String getAnswer = in.readLine();
+                    // преобразуем строку формата json в объект покупки
+                    Gson gson = new Gson();
+                    Buy buy = gson.fromJson(getAnswer, Buy.class);
+                    //добавляем объект покупки в корзину
+                    basket.add(buy);
+                    String str = MaxCategory.getMaxCategory(basket);
+                    out.println(str);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Не могу стартовать сервер");
+            e.printStackTrace();
+        }
+    }
+}
