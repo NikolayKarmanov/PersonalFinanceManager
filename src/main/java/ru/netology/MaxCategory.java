@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MaxCategory {
 
-    public static String getMaxCategory(List<Buy> basket, String date) {
+    public static JSONObject getMaxCategory(List<Buy> basket, String date) {
         LocalDate dateBuy = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
         JSONObject json = new JSONObject();
 
@@ -48,8 +48,7 @@ public class MaxCategory {
         json.put("maxDayCategory", maxDayCategory);
         // ==============================================================================
 
-        String str = json.toJSONString();
-        return str;
+        return json;
     }
 
     private static Map<String, Integer> calculation(List<Buy> basket) {

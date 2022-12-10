@@ -39,7 +39,7 @@ public class Main {
                     //добавляем объект покупки в корзину
                     basket.add(buy);
                     saveToBin(basket);
-                    String str = MaxCategory.getMaxCategory(basket, date);
+                    JSONObject str = MaxCategory.getMaxCategory(basket, date);
                     out.println(str);
                 }
             }

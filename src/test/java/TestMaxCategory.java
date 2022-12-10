@@ -33,15 +33,12 @@ public class TestMaxCategory {
 
     @Test
     public void testMaxCategory() throws ParseException {
-        String str = MaxCategory.getMaxCategory(basket, buy1.getDate());
-
-        JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(str);
+        JSONObject json = MaxCategory.getMaxCategory(basket, buy1.getDate());
 
         // значением ключа "maxCategory" является вложенный json, поэтому извлекаем из него необходимые нам данные
         JSONObject result_json = (JSONObject) json.get("maxCategory");
         String result_title = (String) result_json.get("category");
-        int result_sum = (int) (long) result_json.get("sum");
+        int result_sum = (int) result_json.get("sum");
 
         String expected_title = "одежда";
         int expected_sum = 2000;
@@ -54,15 +51,12 @@ public class TestMaxCategory {
     public void testOtherCategory() throws ParseException {
         Buy other = new Buy("Лодка", "2022.02.08", 50000);
         basket.add(other);
-        String str = MaxCategory.getMaxCategory(basket, buy1.getDate());
-
-        JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser.parse(str);
+        JSONObject json = MaxCategory.getMaxCategory(basket, buy1.getDate());
 
         // значением ключа "maxCategory" является вложенный json, поэтому извлекаем из него необходимые нам данные
         JSONObject result_json = (JSONObject) json.get("maxCategory");
         String result_title = (String) result_json.get("category");
-        int result_sum = (int) (long) result_json.get("sum");
+        int result_sum = (int) result_json.get("sum");
 
         String expected_title = "другое";
         int expected_sum = 50000;
