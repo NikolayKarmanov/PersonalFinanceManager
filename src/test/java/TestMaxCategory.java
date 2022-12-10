@@ -16,7 +16,7 @@ public class TestMaxCategory {
     Buy buy3 = new Buy("сухарики", "2022.02.08", 20);
     Buy buy4 = new Buy("курица", "2022.02.08", 500);
     Buy buy5 = new Buy("тапки", "2022.02.08", 1000);
-    Buy buy6 = new Buy("шапка", "2022.02.08", 1000);
+    Buy buy6 = new Buy("шапка", "2021.02.08", 1000);
     Buy buy7 = new Buy("мыло", "2022.02.08", 50);
 
     List<Buy> basket = new ArrayList<>();
@@ -60,6 +60,21 @@ public class TestMaxCategory {
 
         String expected_title = "другое";
         int expected_sum = 50000;
+
+        Assertions.assertEquals(expected_title, result_title);
+        Assertions.assertEquals(expected_sum, result_sum);
+    }
+
+    @Test
+    public void testMaxDayCategory() {
+        JSONObject json = MaxCategory.getMaxCategory(basket, buy6.getDate());
+        // значением ключа "maxCategory" является вложенный json, поэтому извлекаем из него необходимые нам данные
+        JSONObject result_json = (JSONObject) json.get("maxDayCategory");
+        String result_title = (String) result_json.get("category");
+        int result_sum = (int) result_json.get("sum");
+
+        String expected_title = "одежда";
+        int expected_sum = 1000;
 
         Assertions.assertEquals(expected_title, result_title);
         Assertions.assertEquals(expected_sum, result_sum);
