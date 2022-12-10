@@ -45,7 +45,8 @@ public class MaxCategory {
         Map.Entry<String, Integer> result = summary.entrySet().stream().max(Comparator.comparing(Map.Entry::getValue)).orElse(null);
 
         JSONObject body = new JSONObject();
-        body.put(result.getKey(), result.getValue());
+        body.put("category", result.getKey());
+        body.put("sum", result.getValue());
         JSONObject head = new JSONObject();
         head.put("maxCategory", body);
         String str = head.toJSONString();

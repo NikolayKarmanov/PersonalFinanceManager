@@ -1,6 +1,7 @@
 package ru.netology;
 
 import com.google.gson.Gson;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import java.io.BufferedReader;
@@ -22,11 +23,13 @@ public class Client {
             Buy buy = new Buy("булка", "2022.12.08", 2000);
 
             // переводим объект-покупка в json-формат
-            Gson gson = new Gson();
-            String buyToJson = gson.toJson(buy);
+            JSONObject json = new JSONObject();
+            json.put("title", buy.getTitle());
+            json.put("date", buy.getDate());
+            json.put("sum", buy.getSum());
 
             // отправляем покупку в json-формате на сервер
-            out.println(buyToJson);
+            out.println(json);
 
             String getMaxCategory = in.readLine();
             System.out.println(getMaxCategory);
