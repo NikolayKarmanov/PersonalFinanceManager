@@ -1,6 +1,5 @@
 package ru.netology;
 
-import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
