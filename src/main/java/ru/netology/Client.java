@@ -19,7 +19,7 @@ public class Client {
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
 
             // создаем объект покупка
-            Buy buy = new Buy("булка", "2022.12.08", 2000);
+            Buy buy = new Buy("булка", "2021.12.13", 1000);
 
             // переводим объект-покупка в json-формат
             JSONObject json = new JSONObject();

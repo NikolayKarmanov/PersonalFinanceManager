@@ -33,7 +33,7 @@ public class TestMaxCategory {
 
     @Test
     public void testMaxCategory() throws ParseException {
-        String str = MaxCategory.getMaxCategory(basket);
+        String str = MaxCategory.getMaxCategory(basket, buy1.getDate());
 
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(str);
@@ -54,7 +54,7 @@ public class TestMaxCategory {
     public void testOtherCategory() throws ParseException {
         Buy other = new Buy("Лодка", "2022.02.08", 50000);
         basket.add(other);
-        String str = MaxCategory.getMaxCategory(basket);
+        String str = MaxCategory.getMaxCategory(basket, buy1.getDate());
 
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(str);

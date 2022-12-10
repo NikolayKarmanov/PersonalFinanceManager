@@ -1,9 +1,10 @@
 package ru.netology;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Buy {
+public class Buy implements Serializable {
     private String title;
     private LocalDate date;
     private int sum;
@@ -20,6 +21,10 @@ public class Buy {
 
     public String getDate() {
         return date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+    }
+
+    public LocalDate getLocalDate() {
+        return date;
     }
 
     public int getSum() {
