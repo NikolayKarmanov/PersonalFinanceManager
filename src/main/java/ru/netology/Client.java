@@ -8,31 +8,44 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws IOException {
         String host = "127.0.0.1";
         int port = 8989;
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("Введите название покупки или \"end\" для выхода: ");
+            String title = scanner.nextLine();
+            if (title.equals("end")) {
+                break;
+            }
+            System.out.print("Введите дату: ");
+            String date = scanner.nextLine();
+            System.out.print("Введите сумму: ");
+            String sumStr = scanner.nextLine();
+            int sum = Integer.parseInt(sumStr);
 
-        try (Socket clientSocket = new Socket(host, port);
-             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
+            try (Socket clientSocket = new Socket(host, port);
+                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
 
-            // создаем объект покупка
-            Buy buy = new Buy("булка", "2021.12.13", 1000);
+                // создаем объект покупка
+                Buy buy = new Buy(title, date, sum);
 
-            // переводим объект-покупка в json-формат
-            JSONObject json = new JSONObject();
-            json.put("title", buy.getTitle());
-            json.put("date", buy.getDate());
-            json.put("sum", buy.getSum());
+                // переводим объект-покупка в json-формат
+                JSONObject json = new JSONObject();
+                json.put("title", buy.getTitle());
+                json.put("date", buy.getDate());
+                json.put("sum", buy.getSum());
 
-            // отправляем покупку в json-формате на сервер
-            out.println(json);
+                // отправляем покупку в json-формате на сервер
+                out.println(json);
 
-            String getMaxCategory = in.readLine();
-            System.out.println(getMaxCategory);
-
+                String getMaxCategory = in.readLine();
+                System.out.println(getMaxCategory);
+            }
         }
     }
 }
