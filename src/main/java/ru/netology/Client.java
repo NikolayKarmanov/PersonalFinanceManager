@@ -8,31 +8,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws IOException {
         String host = "127.0.0.1";
         int port = 8989;
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.print("Введите название покупки или \"end\" для выхода: ");
-            String title = scanner.nextLine();
-            if (title.equals("end")) {
-                break;
-            }
-            System.out.print("Введите дату: ");
-            String date = scanner.nextLine();
-            System.out.print("Введите сумму: ");
-            String sumStr = scanner.nextLine();
-            int sum = Integer.parseInt(sumStr);
-
+        Map<String, String> map = Categories.getCategories();
+        int i = 0;
+        while (i < 200) {
+            i++;
             try (Socket clientSocket = new Socket(host, port);
                  PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                  BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
 
                 // создаем объект покупка
-                Buy buy = new Buy(title, date, sum);
+                Buy buy = new Buy(Parameters.getRandomTitle(map), Parameters.getRandomDate(), Parameters.getRandomSum());
 
                 // переводим объект-покупка в json-формат
                 JSONObject json = new JSONObject();
@@ -43,7 +35,8 @@ public class Client {
                 // отправляем покупку в json-формате на сервер
                 out.println(json);
                 String getMaxCategory = in.readLine();
-                getMaxCategory = getMaxCategory.replaceAll(":\\{", ":\n\t\\{");
+                //getMaxCategory = getMaxCategory.replaceAll(":\\{", ":\n\t\\{");
+                System.out.println(buy.toString());
                 getMaxCategory = getMaxCategory.replaceAll("\\},", "\\},\n");
                 System.out.println(getMaxCategory);
                 System.out.println("==============================================");
