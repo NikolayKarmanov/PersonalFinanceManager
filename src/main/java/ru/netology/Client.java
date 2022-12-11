@@ -46,6 +46,7 @@ public class Client {
                 getMaxCategory = getMaxCategory.replaceAll(":\\{", ":\n\t\\{");
                 getMaxCategory = getMaxCategory.replaceAll("\\},", "\\},\n");
                 System.out.println(getMaxCategory);
+                System.out.println("==============================================");
             }
         }
     }
