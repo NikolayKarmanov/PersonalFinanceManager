@@ -42,8 +42,9 @@ public class Client {
 
                 // отправляем покупку в json-формате на сервер
                 out.println(json);
-
                 String getMaxCategory = in.readLine();
+                getMaxCategory = getMaxCategory.replaceAll(":\\{", "\n\t\\{");
+                getMaxCategory = getMaxCategory.replaceAll("\\},", "\\},\n");
                 System.out.println(getMaxCategory);
             }
         }
