@@ -30,4 +30,8 @@ public class Buy implements Serializable {
     public int getSum() {
         return sum;
     }
+
+    public String toString() {
+        return "Title: " + getTitle() + ", date " + getDate() + ", sum: " + getSum();
+    }
 }
